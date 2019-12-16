@@ -50,7 +50,6 @@ public class MapsPlacesActivity extends FragmentActivity implements OnMapReadyCa
         }.getType();
         results = gson.fromJson(getIntent().getExtras().getString("data"), founderListType);
 
-        List<PlacesModel.Results> x = results;
 
     }
 
@@ -97,30 +96,13 @@ public class MapsPlacesActivity extends FragmentActivity implements OnMapReadyCa
             String vicinity = results.get(i).vicinity;
             MarkerOptions markerOptions = new MarkerOptions();
             LatLng latLng = new LatLng(lat, lng);
-            // Position of Marker on Map
             markerOptions.position(latLng);
-            // Adding Title to the Marker
             markerOptions.title(placeName + " : " + vicinity);
-            // Adding Marker to the Camera.
             Marker m = mMap.addMarker(markerOptions);
-            // Adding colour to the marker
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-            // move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
         }
     }
 
-
-    private void fetchLocation() {
-
-        SmartLocation.with(this).location()
-                .oneFix()
-                .start(new OnLocationUpdatedListener() {
-                    @Override
-                    public void onLocationUpdated(Location location) {
-                        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    }
-                });
-    }
 }
